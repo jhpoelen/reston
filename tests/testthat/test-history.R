@@ -7,22 +7,19 @@ sha256_uri <- function(x) {
 
 first_version_query_hash <- function() {
   biodiversity_dataset_graph <- "0659a54f-b713-4f86-a917-5be166a14110"
-  has_version <- "http://purl.org/pav/hasVersion"
 
   sha256_uri(
     paste0(
       sha256_uri(biodiversity_dataset_graph),
-      sha256_uri(has_version)
+      sha256_uri("http://purl.org/pav/hasVersion")
     )
   )
 }
 
 next_version_query_hash <- function(prov_hash_uri) {
-  previous_version <- "http://purl.org/pav/previousVersion"
-
   sha256_uri(
     paste0(
-      sha256_uri(previous_version),
+      sha256_uri("http://purl.org/pav/previousVersion"),
       sha256_uri(prov_hash_uri)
     )
   )
