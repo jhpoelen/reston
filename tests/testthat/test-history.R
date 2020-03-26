@@ -45,22 +45,12 @@ version_history_iter <- function(retrieve, queryHash = first_version_query_hash(
   }
 
   obj <- list(nextElem = nextEl)
-  class(obj) <- c('prov_history_iter','abstractiter','iter')
+  class(obj) <- c('version_history_iter','abstractiter','iter')
   obj
 }
 
 version_history <- function(retrieve) {
-  versions <- function(version_history) {
-    last_version <- version_history[[length(version_history)]]
-    next_version_candidate <- retrieve(next_version_query_hash(last_version))
-    if(is_valid_hash(next_version_candidate)) {
-      versions(append(version_history, next_version_candidate))
-    } else {
-      version_history
-    }
-  }
-  first_version <- retrieve(first_version_query_hash())
-  versions(list(first_version))
+  as.list(version_history_iter(retrieve))
 }
 
 retrieve_test <- function(hash) {
