@@ -45,7 +45,7 @@ version_history_iter <- function(retrieve, queryHash = first_version_query_hash(
   }
 
   obj <- list(nextElem = nextEl)
-  class(obj) <- c('version_history_iter','abstractiter','iter')
+  class(obj) <- c('abstractiter','iter')
   obj
 }
 
@@ -60,7 +60,6 @@ retrieve_test <- function(hash) {
          "hash://sha256/1707cb11cd9f696f1a86fd06742c1e14fad856747be88791f79f6fc7c979d5a6" = "hash://sha256/7efdea9263e57605d2d2d8b79ccd26a55743123d0c974140c72c8c1cfc679b93"
   )
 };
-
 
 test_that("prov version iter returns all versions", {
   prov_iter <- version_history_iter(retrieve_test)
