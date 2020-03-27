@@ -5,15 +5,12 @@
 \title{Returns an answer to a query hash}
 \usage{
 query(query_hash = first_version_query_hash(),
-  url_endpoint = ia_biodiversity_dataset_archive_url,
-  hash2path = hash_to_2level_path())
+  hash2url = hash2url_ia_biodiversity_dataset_archive)
 }
 \arguments{
 \item{query_hash}{query_hash explicitly specify version to start with, by default, the first version is queried.}
 
-\item{url_endpoint}{location of local (e.g., file://) or remote preston archive. By default, the biodiversity dataset archive at the internet archive is used.}
-
-\item{hash2path}{function that maps a query hash to a relative url path}
+\item{hash2url}{function that maps a query hash to a url}
 }
 \value{
 an answer in the form a content hash
