@@ -48,9 +48,10 @@ next_version_query_hash <- function(prov_hash_uri) {
 #'   https://preston.guoda.bio
 #'
 
-version_history_iter <- function(resolve, query_hash = first_version_query_hash()) {
+version_history_iter <- function(query_hash = first_version_query_hash(),
+                                 query = query_internet_archive) {
   nextEl <- function() {
-    candidate_version <- resolve(query_hash)
+    candidate_version <- query(query_hash)
     if (is_valid_hash(candidate_version)) {
       query_hash <<- next_version_query_hash(candidate_version)
       candidate_version
@@ -81,6 +82,6 @@ version_history_iter <- function(resolve, query_hash = first_version_query_hash(
 #'
 #'   https://preston.guoda.bio
 #'
-version_history <- function(resolve = resolve_internet_archive) {
-  as.list(version_history_iter(resolve))
+version_history <- function(query = query_internet_archive) {
+  as.list(version_history_iter(query = query))
 }
