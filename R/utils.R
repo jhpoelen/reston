@@ -39,3 +39,21 @@ next_version_query_hash <- function(prov_hash_uri) {
 }
 
 ia_biodiversity_dataset_archive_url <- "https://archive.org/download/biodiversity-dataset-archives/data.zip/data/"
+
+hash2url <- function(hash,
+                     url_endpoint = ia_biodiversity_dataset_archive_url,
+                     hash2path = hash_to_2level_path()) {
+  paste0(url_endpoint, hash2path(hash))
+}
+
+hash2url_ia_biodiversity_dataset_archive <- function(hash) {
+  hash2url(hash,
+           url_endpoint = ia_biodiversity_dataset_archive_url,
+           hash2path = hash_to_2level_path)
+}
+
+hash2url_deeplinker <- function(hash) {
+  hash2url(hash,
+           url_endpoint = "https://deeplinker.bio/",
+           hash2path = hash_to_0level_path)
+}

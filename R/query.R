@@ -1,3 +1,5 @@
+
+
 #' Returns an answer to a query hash
 #'
 #' Internally, an answer is retrieved by appending the relative path
@@ -10,8 +12,7 @@
 #'  * some/path is the query hash path generated from query hash by hash2path
 #'
 #' @param query_hash query_hash explicitly specify version to start with, by default, the first version is queried.
-#' @param url_endpoint location of local (e.g., file://) or remote preston archive. By default, the biodiversity dataset archive at the internet archive is used.
-#' @param hash2path function that maps a query hash to a relative url path
+#' @param hash2url function that maps a query hash to a url
 #' @return an answer in the form a content hash
 #' @examples
 #' \donttest{
@@ -24,14 +25,13 @@
 #' @seealso <https://preston.guoda.bio>
 #'
 query <- function(query_hash = first_version_query_hash(),
-                  url_endpoint = ia_biodiversity_dataset_archive_url,
-                  hash2path = hash_to_2level_path()) {
+                  hash2url = hash2url_ia_biodiversity_dataset_archive) {
   hash_candidate <- ''
   if (is_valid_hash(query_hash)) {
-    hash_path <- hash2path(query_hash)
-    query_url <- paste0(url_endpoint, hash_path)
+    query_url <- hash2url(query_hash)
     con <- curl::curl(query_url, "rb")
-    bin <- readBin(con, raw(), 79)
+    # an answer should be a sha256 hash uri of length 78
+    bin <- readBin(con, raw(), 78)
     close(con)
     hash_candidate <- enc2utf8(rawToChar(bin))
   }
@@ -52,8 +52,7 @@ query <- function(query_hash = first_version_query_hash(),
 #'
 query_internet_archive <- function(query_hash = first_version_query_hash()) {
   query(query_hash,
-          url_endpoint = "https://archive.org/download/biodiversity-dataset-archives/data.zip/data/",
-          hash2path = hash_to_2level_path)
+          hash2url = hash2url_ia_biodiversity_dataset_archive)
 }
 
 #' Returns answer to query hash as provided by Preston remote at
@@ -71,7 +70,6 @@ query_internet_archive <- function(query_hash = first_version_query_hash()) {
 
 query_deep_linker <- function(query_hash = first_version_query_hash()) {
   query(query_hash,
-          url_endpoint = "https://deeplinker.bio/",
-          hash2path = hash_to_0level_path)
+          hash2url = hash2url_deeplinker)
 }
 
