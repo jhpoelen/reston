@@ -1,2 +1,8 @@
 ^.*\.Rproj$
 ^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^docs$
+^\.github/workflows/R-CMD-check\.yaml$
+.travis.yml
+^\.github$
