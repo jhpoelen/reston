@@ -28,7 +28,7 @@ query <- function(query_hash = first_version_query_hash(),
                   hash2url = hash2url_ia_biodiversity_dataset_archive) {
   hash_candidate <- NA_character_
   if (is_valid_hash(query_hash)) {
-    con <- retrieve(query_hash, hash2url)
+    con <- retrieve_content(query_hash, hash2url)
     # an answer should be a sha256 hash uri of length 78
     bin <- readBin(con, raw(), 78)
     close(con)
