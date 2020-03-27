@@ -7,10 +7,23 @@
 retrieve(content_hash,
   hash2url = hash2url_ia_biodiversity_dataset_archive)
 }
-\description{
-@param content_hash content hash of requested content in hashuri format.
-@return stream (i.e., connection) of content
+\arguments{
+\item{content_hash}{content hash of requested content}
+
+\item{hash2url}{function that maps a content hash to a url}
 }
-\details{
-@export
+\value{
+a stream (i.e., connection) of requested content
+}
+\description{
+Opens a stream (i.e., connection) to retrieve content associated with content_hash
+}
+\examples{
+\donttest{
+ con <- retrieve(query())
+ first_line <- readLines(con, 1)
+ close(con)
+ # first line should start with <https://preston.guoda...
+}
+
 }

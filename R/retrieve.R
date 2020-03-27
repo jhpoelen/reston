@@ -1,9 +1,17 @@
 #' Opens a stream (i.e., connection) to retrieve content associated with content_hash
 #'
-#'  @param content_hash content hash of requested content in hashuri format.
-#'  @return stream (i.e., connection) of content
+#' @param content_hash content hash of requested content
+#' @param hash2url function that maps a content hash to a url
+#' @return a stream (i.e., connection) of requested content
+#' @examples
+#' \donttest{
+#'  con <- retrieve(query())
+#'  first_line <- readLines(con, 1)
+#'  close(con)
+#'  # first line should start with <https://preston.guoda...
+#' }
 #'
-#'  @export
+#' @export
 #'
 retrieve <- function(content_hash, hash2url = hash2url_ia_biodiversity_dataset_archive) {
   if (is_valid_hash(content_hash)) {
