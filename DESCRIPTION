@@ -1,14 +1,18 @@
 Package: reston
 Type: Package
-Title: What the Package Does (Title Case)
+Title: a biodiversity dataset tracker
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Jorrit Poelen <jhpoelen@xs4all.nl>
+Maintainer: Jorrit Poelen <jhpoelen@xs4all.nl>
+Description: Reston, an R port of Preston, helps to access 
+    versioned biodiversity datasets sourced from online
+    web locations.
+License: GPL-3
 Encoding: UTF-8
 LazyData: true
 Imports:
   openssl,
-  iterators
+  iterators,
+  curl
+Suggests:
+  testthat
