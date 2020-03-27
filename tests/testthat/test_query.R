@@ -29,6 +29,6 @@ test_that("a file can be retrieved from deeplinker", {
 
 test_that("na is returned on invalid query hash", {
   some_version <- query("not:a:hashuri")
-  expect_equal(some_version, NA_character_)_
+  expect_equal(some_version, NA_character_)
 })
 

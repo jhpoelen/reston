@@ -10,6 +10,8 @@
 #'  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 #' }
 #'
+#' @export
+#'
 
 version_history_iter <- function(query_hash = first_version_query_hash(),
                                  query = query_internet_archive) {
@@ -41,6 +43,8 @@ version_history_iter <- function(query_hash = first_version_query_hash(),
 #'  head(version_list)
 #'  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 #' }
+#'
+#' @export
 #'
 version_history <- function(query_hash = first_version_query_hash(),
                             query = query_internet_archive) {
