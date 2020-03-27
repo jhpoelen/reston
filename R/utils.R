@@ -12,3 +12,28 @@ hash_to_0level_path <- function(sha256_hash) {
 is_valid_hash <- function(hash) {
   ifelse(length(grep("hash://sha256/[0-9a-z]{64}", hash)) == 0, FALSE, TRUE)
 }
+
+sha256_uri <- function(x) {
+  hash <- openssl::sha256(x)
+  paste0("hash://sha256/", vapply(hash, as.character, character(1L)))
+}
+
+first_version_query_hash <- function() {
+  biodiversity_dataset_graph <- "0659a54f-b713-4f86-a917-5be166a14110"
+
+  sha256_uri(
+    paste0(
+      sha256_uri(biodiversity_dataset_graph),
+      sha256_uri("http://purl.org/pav/hasVersion")
+    )
+  )
+}
+
+next_version_query_hash <- function(prov_hash_uri) {
+  sha256_uri(
+    paste0(
+      sha256_uri("http://purl.org/pav/previousVersion"),
+      sha256_uri(prov_hash_uri)
+    )
+  )
+}
