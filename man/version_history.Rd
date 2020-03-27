@@ -4,9 +4,12 @@
 \alias{version_history}
 \title{List preston version history starting with oldest version.}
 \usage{
-version_history(query = query_internet_archive)
+version_history(query_hash = first_version_query_hash(),
+  query = query_internet_archive)
 }
 \arguments{
+\item{query_hash}{query_hash explicitly specify version to start with}
+
 \item{query}{a function that takes a query hash and returns a content hash}
 }
 \value{
@@ -21,8 +24,5 @@ Please use version_history_iter for incrementally retrieving version.
  head(version_list)
  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 }
-Learn more about preston at:
-
-  https://preston.guoda.bio
 
 }

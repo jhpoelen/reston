@@ -37,3 +37,5 @@ next_version_query_hash <- function(prov_hash_uri) {
     )
   )
 }
+
+ia_biodiversity_dataset_archive_url <- "https://archive.org/download/biodiversity-dataset-archives/data.zip/data/"

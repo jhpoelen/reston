@@ -7,6 +7,9 @@ https://deeplinker.bio}
 \usage{
 query_deep_linker(query_hash = first_version_query_hash())
 }
+\arguments{
+\item{query_hash}{query_hash explicitly specify version to start with}
+}
 \value{
 an answer in the form a content hash
 }
@@ -16,9 +19,9 @@ https://deeplinker.bio
 }
 \examples{
 \donttest{
- first_version <- query_deep_linker("hash://sha256/2a5de79372318317a382ea9a2cef069780b852b01210ef59e06b640a3539cb5a")
+ first_version <- query_deep_linker()
  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 }
- @seealso https://github.com/bio-guoda/preston/blob/master/architecture.md#simplified-hexastore#'
+
 
 }

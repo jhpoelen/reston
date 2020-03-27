@@ -8,6 +8,8 @@ version_history_iter(query_hash = first_version_query_hash(),
   query = query_internet_archive)
 }
 \arguments{
+\item{query_hash}{query_hash explicitly specify version to start with}
+
 \item{query}{a function that takes a query hash and returns a content hash}
 }
 \value{
@@ -22,8 +24,5 @@ Iterator for preston version history starting with oldest version.
  first_version <- nextElem(version_iter)
  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 }
-Learn more about preston at:
-
-  https://preston.guoda.bio
 
 }

@@ -5,8 +5,15 @@
 \title{Returns an answer to a query hash}
 \usage{
 query(query_hash = first_version_query_hash(),
-  url_endpoint = query_internet_archive,
+  url_endpoint = ia_biodiversity_dataset_archive_url,
   hash2path = hash_to_2level_path())
+}
+\arguments{
+\item{query_hash}{query_hash explicitly specify version to start with, by default, the first version is queried.}
+
+\item{url_endpoint}{location of local (e.g., file://) or remote preston archive. By default, the biodiversity dataset archive at the internet archive is used.}
+
+\item{hash2path}{function that maps a query hash to a relative url path}
 }
 \value{
 an answer in the form a content hash
@@ -16,16 +23,25 @@ Internally, an answer is retrieved by appending the relative path
 of the query hash provided by hash2path to the url endpoint:
 }
 \details{
-[url endpoint]/[query hash path]
+https://example.org/hash/path
 
-where query hash path = hash2path(query_hash)
+where:
+\itemize{
+\item https://example.org/ is the url endpoint
+\item some/path is the query hash path generated from query hash by hash2path
+}
 }
 \examples{
 \donttest{
- first_version <- query("hash://sha256/2a5de79372318317a382ea9a2cef069780b852b01210ef59e06b640a3539cb5a")
+ first_version <- query()
  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 }
- @seealso https://github.com/bio-guoda/preston/blob/master/architecture.md#simplified-hexastore#'
- @seealso https://preston.guoda.bio
 
+}
+\seealso{
+\url{https://github.com/bio-guoda/preston/blob/master/architecture.md#simplified-hexastore#}
+
+\url{https://archive.org/details/biodiversity-dataset-archives}
+
+\url{https://preston.guoda.bio}
 }

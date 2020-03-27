@@ -3,24 +3,28 @@
 #' Internally, an answer is retrieved by appending the relative path
 #' of the query hash provided by hash2path to the url endpoint:
 #'
-#' [url endpoint]/[query hash path]
+#' https://example.org/hash/path
 #'
-#' where query hash path = hash2path(query_hash)
+#' where:
+#'  * https://example.org/ is the url endpoint
+#'  * some/path is the query hash path generated from query hash by hash2path
 #'
-#' @query_hash query_hash explicitly specify version to start with
-#' @url_endpoint location of local (e.g., file://) or remote preston archive
-#' @hash2path function that maps a query hash to a relative url path
+#' @param query_hash query_hash explicitly specify version to start with, by default, the first version is queried.
+#' @param url_endpoint location of local (e.g., file://) or remote preston archive. By default, the biodiversity dataset archive at the internet archive is used.
+#' @param hash2path function that maps a query hash to a relative url path
 #' @return an answer in the form a content hash
 #' @examples
 #' \donttest{
-#'  first_version <- query("hash://sha256/2a5de79372318317a382ea9a2cef069780b852b01210ef59e06b640a3539cb5a")
+#'  first_version <- query()
 #'  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 #' }
-#'  @seealso https://github.com/bio-guoda/preston/blob/master/architecture.md#simplified-hexastore#'
-#'  @seealso https://preston.guoda.bio
+#'
+#' @seealso <https://github.com/bio-guoda/preston/blob/master/architecture.md#simplified-hexastore#>
+#' @seealso <https://archive.org/details/biodiversity-dataset-archives>
+#' @seealso <https://preston.guoda.bio>
 #'
 query <- function(query_hash = first_version_query_hash(),
-                  url_endpoint = query_internet_archive,
+                  url_endpoint = ia_biodiversity_dataset_archive_url,
                   hash2path = hash_to_2level_path()) {
   hash_candidate <- ''
   if (is_valid_hash(query_hash)) {
@@ -37,14 +41,14 @@ query <- function(query_hash = first_version_query_hash(),
 #' Returns answer to query hash as provided by Preston remote at
 #' https://archive.org/download/biodiversity-dataset-archives/data.zip/data/
 
-#' @query_hash query_hash explicitly specify version to start with
+#' @param query_hash query_hash explicitly specify version to start with
 #' @return an answer in the form a content hash
 #' @examples
 #' \donttest{
-#'  first_version <- query_deep_linker("hash://sha256/2a5de79372318317a382ea9a2cef069780b852b01210ef59e06b640a3539cb5a")
+#'  first_version <- query_deep_linker()
 #'  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 #' }
-#' @seealso https://archive.org/download/biodiversity-dataset-archives/data.zip/data/
+#' @seealso https://archive.org/details/biodiversity-dataset-archives
 #'
 query_internet_archive <- function(query_hash = first_version_query_hash()) {
   query(query_hash,
@@ -55,14 +59,14 @@ query_internet_archive <- function(query_hash = first_version_query_hash()) {
 #' Returns answer to query hash as provided by Preston remote at
 #' https://deeplinker.bio
 #'
-#' @query_hash query_hash explicitly specify version to start with
+#' @param query_hash query_hash explicitly specify version to start with
 #' @return an answer in the form a content hash
 #' @examples
 #' \donttest{
-#'  first_version <- query_deep_linker("hash://sha256/2a5de79372318317a382ea9a2cef069780b852b01210ef59e06b640a3539cb5a")
+#'  first_version <- query_deep_linker()
 #'  # "hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55"
 #' }
-#'  @seealso https://github.com/bio-guoda/preston/blob/master/architecture.md#simplified-hexastore#'
+#'
 #'
 
 query_deep_linker <- function(query_hash = first_version_query_hash()) {
