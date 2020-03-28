@@ -16,7 +16,7 @@
 retrieve_content <- function(content_hash, hash2url = hash2url_ia_biodiversity_dataset_archive) {
   if (is_valid_hash(content_hash)) {
     query_url <- hash2url(content_hash)
-    curl::curl(query_url, "rb")
+    url(query_url, "rb")
   } else {
     stop(paste(content_hash, "is not a valid content hash"))
   }
