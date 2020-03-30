@@ -45,7 +45,7 @@ The expected output is:
 <https://preston.guoda.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#SoftwareAgent> .
 ```
 
-The provenance logs contains datasets versions for tracked dataset urls in the format:
+Beyond the first lines, the provenance logs contains datasets versions for tracked dataset locations in the format:
 
 ```
 <some url> <http://purl.org/pav/hasVersion> <some dataset id>
