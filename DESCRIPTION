@@ -20,6 +20,7 @@ Suggests:
   knitr,
   rmarkdown,
   testthat,
-  covr
+  covr,
+  itertools
 Roxygen: list(markdown = TRUE)
 

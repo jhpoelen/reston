@@ -31,22 +31,6 @@ test_that("prov version iterate", {
 })
 
 
-test_that("hash uri is valid", {
-  expect_true(is_valid_hash("hash://sha256/a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"))
-})
-
-test_that("hash uri is invalid", {
-  expect_false(is_valid_hash("bla"))
-})
-
-
-test_that("can calculate a sha256 hash", {
-  hash <- sha256_uri("123")
-  expect_identical(
-    hash,
-    "hash://sha256/a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"
-  )
-})
 
 test_that("can traverse a preston provenance history", {
   expect_identical(
@@ -91,6 +75,42 @@ test_that("retrieve a sequence of versions", {
 
   expect_equal(length(some_versions), 3)
 
+})
 
+test_that("stream provenance log into connection", {
+
+
+  write_provenance_logs <- function(write_provenance_log, version_iter = version_history_iter(), n = -1L) {
+    it <- itertools::ihasNext(version_iter)
+    counter <- 0L
+    while (itertools::hasNext(it) && (n == -1 || counter < n)) {
+      version_id <- iterators::nextElem(it)
+      prov_con <- retrieve_content(version_id)
+      write_provenance_log(a_version, prov_con)
+      close(prov_con)
+      counter <- counter + 1
+    }
+  }
+
+  # open an temporary read/write connection
+  test_con <- fifo("", open = "w+b")
+
+  write_provenance_log_test <- function(version_id, prov_con) {
+    # read first line in provenance log
+    first_line <- readLines(con = prov_con, n = 1)
+    # write first line from provenance log into connection "test_con"
+    writeLines(first_line, test_con)
+  }
+
+  # attempt to write logs for first two versions
+  write_provenance_logs(write_provenance_log_test, n = 2)
+
+  expected_line <- "<https://preston.guoda.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#SoftwareAgent> ."
+
+  actual_lines <- readLines(test_con)
+  expect_equal(length(actual_lines), 2)
+  expect_equal(length(unique(actual_lines)), 1)
+  expect_equal(head(actual_lines, n=1L), expected_line)
+  close(test_con)
 })
 

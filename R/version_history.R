@@ -26,7 +26,7 @@ version_history_iter <- function(query_hash = first_version_query_hash(),
   }
 
   obj <- list(nextElem = nextEl)
-  class(obj) <- c('abstractiter','iter')
+  class(obj) <- c('version_history_iter', 'abstractiter', 'iter')
   obj
 }
 
