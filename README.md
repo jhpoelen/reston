@@ -58,3 +58,5 @@ For instance:
 ```
 
 You'll find that the default Preston remote contains thousands of these dataset versions.
+
+Please see the [reston tests](tree/master/tests/testthat) for more examples on how to use this package.
