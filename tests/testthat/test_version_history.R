@@ -79,7 +79,6 @@ test_that("retrieve a sequence of versions", {
 
 test_that("stream provenance log into connection", {
 
-
   write_provenance_logs <- function(write_provenance_log, version_iter = version_history_iter(), n = -1L) {
     it <- itertools::ihasNext(version_iter)
     counter <- 0L
