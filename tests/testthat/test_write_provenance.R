@@ -1,6 +1,7 @@
-test_that("extract content versions for locations", {
+context("write processed provenance")
 
-  filter_versions <- function(lines) {
+test_that("write content identifiers for resource locations", {
+  filter_versions <- function(lines, ...) {
     # write only lines with hasVersion in it
     lines[grepl("hasVersion", lines)]
   }
@@ -9,11 +10,10 @@ test_that("extract content versions for locations", {
   test_con <- fifo("", open = "w+b")
 
   # attempt to write logs for first two versions
-  foreach_provenance_log(version_iter = version_history_iter(),
+  write_provenance(version_iter = version_history_iter(),
                          con = test_con,
                          process_func = filter_versions,
                          n = 2)
-
 
   actual_lines <- readLines(test_con)
   close(test_con)
