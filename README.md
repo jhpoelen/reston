@@ -6,7 +6,7 @@ Reston helps discover biodiversity dataset in [Preston](https://preston.guoda.bi
 
 Note that the [```iterators```](https://cran.r-project.org/package=iterators) R package is used to retrieve the provenance log version identifiers. Iterators are used because there may be many versions and it might take a while to retrieve all. A convenience method, ```reston::version_history()``` is provided to retrieve all versions at once.  
 
-The following example writes the first two content identifiers and their source locations from the default [Preston archive at the Internet Archive](https://archive.org/details/biodiversity-dataset-archives) and writes it into a temporary connection. This connection is then read and printed. The function ```write_provenance``` uses provenance version iterators (e.g., ```version_history_iter()```) in the background.  Note that the ```process_func()``` acts as a streaming query. In the example below a line-by-line filter is implemented, but this can be extended to include sufficiently (stateful) complex processing logic. 
+The following example writes the first two content identifiers and their source locations from the default [Preston archive at the Internet Archive](https://archive.org/details/biodiversity-dataset-archives) and writes it into a temporary connection. This connection is then read and printed. The function ```stream_provenance``` uses provenance version iterators (e.g., ```version_history_iter()```) in the background.  Note that the ```process_func()``` acts as a streaming query. In the example below a line-by-line filter is implemented, but this can be extended to include sufficiently (stateful) complex processing logic. 
 
 ```R
 install.packages('remotes')
