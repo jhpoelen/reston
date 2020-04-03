@@ -6,13 +6,17 @@ Reston helps discover biodiversity dataset in [Preston](https://preston.guoda.bi
 
 Note that the [```iterators```](https://cran.r-project.org/package=iterators) R package is used to retrieve the provenance log version identifiers. Iterators are used because there may be many versions and it might take a while to retrieve all. A convenience method, ```reston::version_history()``` is provided to retrieve all versions at once.  
 
-The following example writes the first two content identifiers and their source locations from the default [Preston archive at the Internet Archive](https://archive.org/details/biodiversity-dataset-archives) and writes it into a temporary connection. This connection is then read and printed. The function ```write_provenance``` uses provenance version iterators (e.g., ```version_history_iter()```) in the background.   
+The following example writes the first two content identifiers and their source locations from the default [Preston archive at the Internet Archive](https://archive.org/details/biodiversity-dataset-archives) and writes it into a temporary connection. This connection is then read and printed. The function ```write_provenance``` uses provenance version iterators (e.g., ```version_history_iter()```) in the background.  Note that the ```process_func()``` acts as a streaming query. In the example below a line-by-line filter is implemented, but this can be extended to include sufficiently (stateful) complex processing logic. 
 
 ```R
 install.packages('remotes')
 remotes::install_github("jhpoelen/reston")
 
-filter_versions <- function(lines, ...) {
+# version id is the provenance log hash (e.g., hash://sha256/...
+# line_number_offset is the line number in the current provenance version id
+# the combination of version_id and line_number_offset reliably references 
+# individual lines in the provenance log versions. 
+filter_versions <- function(lines, version_id, line_number_offset) {
   # write only lines with hasVersion in it
   lines[grepl("hasVersion", lines)]
 }
@@ -48,6 +52,6 @@ For instance:
 <http://ipt.gbifbenin.org/archive.do?r=cnsf_niger> <http://purl.org/pav/hasVersion> <hash://sha256/d981008d7c7dddd827bcba16087a9c88cf233567d4751f67bb7f96e0756f2c9c> .
 ```
 
-You'll find that the default Preston remote contains thousands of these dataset versions.
+You'll find that the default Preston remote contains thousands of these dataset versions covering period Sept 2018 - Oct 2019. 
 
 Please see the [reston tests](tests/testthat) for more examples on how to use this package.
