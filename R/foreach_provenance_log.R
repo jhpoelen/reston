@@ -1,10 +1,10 @@
 #' Streams provenance log lines into writable connection.
 #'
-#' @param write_con the connection (e.g., file) to write into after being processed by process_func
+#' @param con the connection (e.g., file) to write into after being processed by process_func
 #' @param process_func a function that processes provenance lines
 #' @param version_iter an provenance version iterator @seealso version_history_iter()
 #' @param n maximum number of (processed) lines to write, -1 means unlimited
-#' @param lines_batch_size number of lines to be processed at once
+#' @param line_batch_size number of lines to be processed at once
 #' @return number of written (processed) lines
 #' @examples
 #' \donttest{
@@ -45,7 +45,7 @@ foreach_provenance_log <- function(con,
       lines_read <- readLines(con = read_con, n = line_batch_size, encoding = "UTF-8")
       has_lines <- length(lines_read) == line_batch_size
       processed_lines <- process_func(lines_read)
-      processed_lines_trunc <- head(processed_lines, n = max_lines_written - n_lines_written)
+      processed_lines_trunc <- utils::head(processed_lines, n = max_lines_written - n_lines_written)
       writeLines(processed_lines_trunc, write_con)
       n_lines_written <- n_lines_written + length(processed_lines_trunc)
     }
@@ -57,7 +57,7 @@ foreach_provenance_log <- function(con,
   while (itertools::hasNext(it) && (n == -1 || n_lines_written_total < n)) {
     version_id <- iterators::nextElem(it)
     read_con <- retrieve_content(version_id)
-    n_lines_written <- process_provenance_log(version_id = a_version,
+    n_lines_written <- process_provenance_log(version_id = version_id,
                                               read_con = read_con,
                                               process_func,
                                               write_con = con,
