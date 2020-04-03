@@ -25,7 +25,7 @@ filter_versions <- function(lines, version_id, line_number_offset) {
 test_con <- fifo("", open = "w+b")
 
 # attempt to write logs for first two versions
-write_provenance(con = test_con,
+stream_provenance(con = test_con,
                  process_func = filter_versions,
                  n = 2)
 actual_lines <- readLines(test_con)
