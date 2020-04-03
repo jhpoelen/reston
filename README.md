@@ -33,9 +33,10 @@ The expected output is:
 
 ```
 [1] "<https://search.idigbio.org/v2/search/publishers> <http://purl.org/pav/hasVersion> <hash://sha256/3eff98d4b66368fd8d1f8fa1af6a057774d8a407a4771490beeb9e7add76f362> ."
-[2] "<https://api.gbif.org/v1/dataset> <http://purl.org/pav/hasVersion> <hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b> ."```
+[2] "<https://api.gbif.org/v1/dataset> <http://purl.org/pav/hasVersion> <hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b> ."
+```
 
-Beyond the first lines, the provenance logs contains datasets versions for tracked dataset locations in the format:
+The provenance logs contains datasets versions for tracked dataset locations in the format:
 
 ```
 <some url> <http://purl.org/pav/hasVersion> <some dataset id>
