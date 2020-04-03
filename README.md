@@ -12,38 +12,28 @@ The following example discovers the first two provenance log versions from the d
 install.packages('remotes')
 remotes::install_github("jhpoelen/reston")
 
-# create a default provenance log version iterator
-version_iter <- reston::version_history_iter()
-it <- itertools::ihasNext(version_iter)
+  filter_versions <- function(lines) {
+    # write only lines with hasVersion in it
+    lines[grepl("hasVersion", lines)]
+  }
 
-counter <- 0L
+  # open an temporary read/write connection
+  test_con <- fifo("", open = "w+b")
 
-while (itertools::hasNext(it) && counter < 2) {
-  version_id <- iterators::nextElem(it)
-  
-  # retrieve a provenance log version
-  prov_con <- reston::retrieve_content(version_id)
-
-  # read the first line
-  first_line <- readLines(con = prov_con, n = 1)
-
-  print(paste0("first line for version_id [", version_id, "] is:"))
-  # write first line from provenance log into connection "test_con"
-  writeLines(first_line, stdout())
-  
-  close(prov_con)
-
-  counter <- counter + 1
-}
+  # attempt to write logs for first two versions
+  foreach_provenance_log(con = test_con,
+                         process_func = filter_versions,
+                         n = 2)
+  actual_lines <- readLines(test_con)
+  close(test_con)
+  actual_lines
 ```
+
 The expected output is:
 
 ```
-[1] "first line for version_id [hash://sha256/c253a5311a20c2fc082bf9bac87a1ec5eb6e4e51ff936e7be20c29c8e77dee55] is:"
-<https://preston.guoda.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#SoftwareAgent> .
-[1] "first line for version_id [hash://sha256/b83cf099449dae3f633af618b19d05013953e7a1d7d97bc5ac01afd7bd9abe5d] is:"
-<https://preston.guoda.org> <http://www.w3.org/1999/02/22-rdf-syntax-ns#type> <http://www.w3.org/ns/prov#SoftwareAgent> .
-```
+[1] "<https://search.idigbio.org/v2/search/publishers> <http://purl.org/pav/hasVersion> <hash://sha256/3eff98d4b66368fd8d1f8fa1af6a057774d8a407a4771490beeb9e7add76f362> ."
+[2] "<https://api.gbif.org/v1/dataset> <http://purl.org/pav/hasVersion> <hash://sha256/184886cc6ae4490a49a70b6fd9a3e1dfafce433fc8e3d022c89e0b75ea3cda0b> ."```
 
 Beyond the first lines, the provenance logs contains datasets versions for tracked dataset locations in the format:
 
