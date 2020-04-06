@@ -21,6 +21,7 @@ Suggests:
   rmarkdown,
   testthat,
   covr,
-  itertools
+  itertools,
+  rdflib
 Roxygen: list(markdown = TRUE)
 
